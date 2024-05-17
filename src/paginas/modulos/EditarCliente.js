@@ -19,7 +19,7 @@ const EditarCliente = () => {
 
     const editarCliente = async (e) => {
         e.preventDefault();
-        await APIInvoke.invokePUT(`/api/clientes${id}`, {
+        await APIInvoke.invokePUT(`/adminproject/clientes${id}`, {
             nombres: nombres,
             apellidos: apellidos,
             cedula: cedula,
@@ -32,6 +32,7 @@ const EditarCliente = () => {
 
     useEffect(() => {
         getClientesID()
+        // eslint-disable-next-line
     }, []);
 
     const getClientesID = async () => {

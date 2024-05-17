@@ -89,7 +89,7 @@ export const Login = () => {
                 </div>
                 <div className="card">
                     <div className="card-body login-card-body">
-                        <p className="login-box-msg">Puede Loguarse</p>
+                        <p className="login-box-msg">Acceder</p>
 
                         <form onSubmit={onSubmit}>
                             <div className="input-group mb-3">
@@ -127,7 +127,7 @@ export const Login = () => {
                             </div>
                             <div className='social-auth-links textcenter mb-3'></div>
                             <button type="submit" className='btn btn-block btn-primary'>Ingresar</button>
-                            <Link to={"/Registro"} className='btn btn-block btn-danger' ></Link>
+                            <Link to={"/Registro"} className='btn btn-block btn-danger' > Registrar usuario</Link>
 
                         </form>
 
