@@ -1,114 +1,61 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ContentHeader from '../../componentes/ContentHeader.js';
 import Footer from '../../componentes/Footer.js';
 import Navbar from '../../componentes/Navbar.js';
 import SidebarContainer from '../../componentes/SidebarContainer.js';
 import APIInvoke from '../../configuracion/APIInvoke.js';
-import swal from 'sweetalert';
 
-export const AgregarCliente = () => {
+const EditarCliente = () => {
 
-    const navigate = useNavigate();
+    const [nombres, setNombres] = useState('');
+    const [apellidos, setApellidos] = useState('');
+    const [cedula, setCedula] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const navigate = useNavigate ();
+    const { id } = useParams();
 
-    const [clientes, setClientes] = useState({
-
-        nombres: '',
-        apellidos: '',
-        cedula: '',
-        correo: '',
-        telefono: '',
-        direccion: ''
-
-    })
-
-    const { nombres, apellidos, cedula, correo, telefono, direccion } = clientes
+    const editarCliente = async (e) => {
+        e.preventDefault();
+        await APIInvoke.invokePUT(`/api/clientes/${id}`, {
+            nombres: nombres,
+            apellidos: apellidos,
+            cedula: cedula,
+            correo: correo,
+            telefono: telefono,
+            direccion: direccion
+        })
+        navigate('/clientes');
+    }
 
     useEffect(() => {
-        document.getElementById("nombres").focus();
+        getClientesID()
+        // eslint-disable-next-line
+    }, []);
 
-    }, [])
-
-    const onChange = (e) => {
-        setClientes({
-            ...clientes,
-            [e.target.name]: e.target.value
-        })
+    const getClientesID = async () => {
+        const resul = await APIInvoke.invokeGET(`${id}`)
+        setNombres(resul.data.nombres)
+        setApellidos(resul.data.apellidos)
+        setCedula(resul.data.cedula)
+        setCorreo(resul.data.correo)
+        setTelefono(resul.data.telefono)
+        setDireccion(resul.data.direccion)
     }
 
-    const CrearCliente = async () => {
 
-        const data = {
-            nombres: clientes.nombres,
-            apellidos: clientes.apellidos,
-            cedula: clientes.cedula,
-            correo: clientes.correo,
-            telefono: clientes.telefono,
-            direccion: clientes.direccion
-        }
-
-        const response = await APIInvoke.invokePOST('/api/clientes', data);
-        const idCliente = response._id
-
-        if (idCliente === '') {
-            const msg = 'Hubo un error de agregar el cliente'
-            swal({
-                title: 'Error',
-                text: msg,
-                icon: 'error',
-                buttons: {
-                    confirm: {
-                        text: 'OK',
-                        value: true,
-                        visible: true,
-                        className: 'btn btn-danger',
-                        closeModal: true
-                    }
-                }
-            });
-        } else {
-            navigate("/clientes");
-            const msg = 'El cliente fue agregado con éxito'
-            swal({
-                title: 'Información',
-                text: msg,
-                icon: 'success',
-                buttons: {
-                    confirm: {
-                        text: 'OK',
-                        value: true,
-                        visible: true,
-                        className: 'btn btn-primary',
-                        closeModal: true
-                    }
-                }
-            });
-            setClientes({
-                nombres: '',
-                apellidos: '',
-                cedula: '',
-                correo: '',
-                telefono: '',
-                direccion: ''
-            });
-        }
-    }
-
-    const onSubmit = (e) => {
-        e.preventdefault();
-        CrearCliente();
-    }
-
-    return (
-        <div className='wrapper'>
+  return (
+    <div className='wrapper'>
             <Navbar></Navbar>
             <SidebarContainer></SidebarContainer>
             <div className='content-wrapper'>
                 <ContentHeader
-                    titulo={"Agregar clientes"}
+                    titulo={"Editar clientes"}
                     breadCrumb1={"Listado de clientes"}
-                    breadCrumb2={"Agregar"}
-                    ruta1={"/clientes/agregar"}
+                    breadCrumb2={"Editar"}
+                    ruta1={"/clientes/editar"}
                 />
                 <section className='content'>
                     <div className='card' />
@@ -116,14 +63,14 @@ export const AgregarCliente = () => {
                     <div className='card-tools'>
                         <button type='button' className='btn btn-tool' data-card-widget='collapse'
                             title='Collapse'>
-                            <i className='fa fa-items'></i>
+                            <i className='fa fa-solid fa-plus'></i>
                         </button>
                         <button type='button' className='btn btn-tool' data-card-widget='remove'
                             title='Remove'>
-                            <i className='fa fa-items'></i>
+                            <i className='fa fa-solid fa-minus'></i>
                         </button>
                         <div className='card-body'>
-                            <form onSubmit={onSubmit}>
+                            <form onSubmit={editarCliente}>
                                 <div className='card-body'>
                                     <div className='form-group'>
                                         <label htmlFor='nombres'>   Nombres   </label>
@@ -133,14 +80,14 @@ export const AgregarCliente = () => {
                                             name='nombres'
                                             placeholder='Ingresar los nombres del cliente'
                                             value={nombres}
-                                            onChange={onChange}
+                                            onChange={(e) => setNombres(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                    <div className='input-group-text'>
+                                        <span className='fa fa-solid fa-user' />
                                     </div>
                                 </div>
 
@@ -153,14 +100,14 @@ export const AgregarCliente = () => {
                                             name='apellidos'
                                             placeholder='Ingresar apellidos'
                                             value={apellidos}
-                                            onChange={onChange}
+                                            onChange={(e) => setApellidos(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                    <div className='input-group-text'>
+                                        <span className='fa fa-solid fa-address-card' />
                                     </div>
                                 </div>
 
@@ -173,13 +120,13 @@ export const AgregarCliente = () => {
                                             name='cedula'
                                             placeholder='Ingresar cédula de ciudadanía'
                                             value={cedula}
-                                            onChange={onChange}
+                                            onChange={(e) => setCedula(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
+                                    <div className='input-group-text'>
                                         <span className='fa fa-envelope' />
                                     </div>
                                 </div>
@@ -191,16 +138,16 @@ export const AgregarCliente = () => {
                                             className='form-control'
                                             id='correo'
                                             name='correo'
-                                            placeholder='Ingresar corre electrónico'
+                                            placeholder='Ingresar correo electrónico'
                                             value={correo}
-                                            onChange={onChange}
+                                            onChange={(e) => setCorreo(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                    <div className='input-group-text'>
+                                        <span className='fa fa-solid fa-phone' />
                                     </div>
                                 </div>
 
@@ -213,14 +160,14 @@ export const AgregarCliente = () => {
                                             name='telefono'
                                             placeholder='Ingresar número del teléfono'
                                             value={telefono}
-                                            onChange={onChange}
+                                            onChange={(e) => setTelefono(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                    <div className='input-group-text'>
+                                        <span className='fa fa-solid fa-house' />
                                     </div>
                                 </div>
 
@@ -233,19 +180,19 @@ export const AgregarCliente = () => {
                                             name='direccion'
                                             placeholder='Ingresar dirección'
                                             value={direccion}
-                                            onChange={onChange}
+                                            onChange={(e) => setDireccion(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className='input-group-append'>
-                                    <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                    <div className='input-group-text'>
+                                        <span className='fa fa-solid fa-house' />
                                     </div>
                                 </div>
 
                                 <div className='card-footer'>
-                                    <button type='submit' className='btn btn-primary'>   Agregar   </button>
+                                    <button type='submit' className='btn btn-primary'>   Guardar   </button>
                                 </div>
                             </form>
                         </div>
@@ -254,7 +201,7 @@ export const AgregarCliente = () => {
             </div>
             <Footer></Footer>
         </div>
-    )
+  )
 }
-
-export default AgregarCliente
+// eslint-disable-next-line
+export default EditarCliente

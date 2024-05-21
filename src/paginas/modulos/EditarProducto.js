@@ -17,7 +17,7 @@ const EditarProducto = () => {
 
     const editarProducto = async (e) => {
         e.preventDefault();
-        await APIInvoke.invokePUT(`/api/productos${id}`, {
+        await APIInvoke.invokePUT(`/api/productos/${id}`, {
             nombre: nombre,
             unidades: unidades,
             precio_unitario: precio_unitario,
@@ -28,6 +28,7 @@ const EditarProducto = () => {
 
     useEffect(() => {
         getProductosID()
+        // eslint-disable-next-line 
     }, []);
 
     const getProductosID = async () => {
@@ -56,11 +57,11 @@ const EditarProducto = () => {
                     <div className='card-tools'>
                         <button type='button' className='btn btn-tool' data-card-widget='collapse'
                             title='Collapse'>
-                            <i className='fa fa-items'></i>
+                            <i className='fa fa-solid fa-plus'></i>
                         </button>
                         <button type='button' className='btn btn-tool' data-card-widget='remove'
                             title='Remove'>
-                            <i className='fa fa-items'></i>
+                            <i className='fa fa-solid fa-minus'></i>
                         </button>
                         <div className='card-body'>
                             <form onSubmit={editarProducto}>
@@ -80,7 +81,7 @@ const EditarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='input-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -101,7 +102,7 @@ const EditarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -121,7 +122,7 @@ const EditarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='input-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -142,7 +143,7 @@ const EditarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='input-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 

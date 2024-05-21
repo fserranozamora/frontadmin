@@ -135,7 +135,7 @@ export const AgregarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -155,7 +155,7 @@ export const AgregarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -175,7 +175,7 @@ export const AgregarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 
@@ -195,7 +195,7 @@ export const AgregarProducto = () => {
                                 </div>
                                 <div className='input-group-append'>
                                     <div className='nput-group-text'>
-                                        <span className='fa fa-envelope' />
+                                        <span className='fa fa-items' />
                                     </div>
                                 </div>
 

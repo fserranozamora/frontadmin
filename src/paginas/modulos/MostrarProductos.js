@@ -7,25 +7,25 @@ import SidebarContainer from "../../componentes/SidebarContainer";
 import APIInvoke from "../../configuracion/APIInvoke";
 import swal from "sweetalert";
 
-const MostrarClientes = () => {
+const MostrarProductos = () => {
 
-    const [clientes, setClientes] = useState([]);
+    const [productos, setProductos] = useState([]);
 
-    const getClientes = async () => {
-        const response = await APIInvoke.invokeGET('/api/clientes/');
-        setClientes(response.clientes);
+    const getProductos = async () => {
+        const response = await APIInvoke.invokeGET('/api/productos/');
+        setProductos(response.productos);
     }
 
     useEffect(() => {
-        getClientes();
+        getProductos();
     }, [])
 
-    const eliminarCliente = async (e, idCliente) => {
+    const eliminarProducto = async (e, idProducto) => {
         e.preventDefault();
-        const response = await APIInvoke.invokeDELETE(`/api/clientes/${idCliente}`);
+        const response = await APIInvoke.invokeDELETE(`/api/productos/${idProducto}`);
 
-        if (response.msg === "El cliente fue eliminado con éxito") {
-            const msg = "El cliente fue eliminado correctamente";
+        if (response.msg === "El producto fue eliminado con éxito") {
+            const msg = "El producto fue eliminado correctamente";
             swal({
                 title: 'Information',
                 text: msg,
@@ -40,7 +40,7 @@ const MostrarClientes = () => {
                     }
                 }
             });
-            getClientes();
+            getProductos();
 
         } else {
             const msg = "El cliente no fue eliminado correctamente";
@@ -70,9 +70,9 @@ const MostrarClientes = () => {
             <div className="content-wrapper">
 
                 <ContentHeader
-                    title={"Listado de clientes"}
+                    title={"Listado de productos"}
                     breadCrumb1={"Inicio"}
-                    breadCrumb2={"Clientes"}
+                    breadCrumb2={"Productos"}
                     route1={"/home"}>
                 </ContentHeader>
 
@@ -80,8 +80,8 @@ const MostrarClientes = () => {
                     <div className="card">
                         <div className="card-header">
                             <h3 className="card-title">
-                                <Link to={"/clientes/agregar"}
-                                    className="btn btn-block btn-primary btn-sm"> Agregar clientes  <i className="fa fa-solid fa-user-plus"></i>
+                                <Link to={"/productos/agregar"}
+                                    className="btn btn-block btn-primary btn-sm"> Agregar productos  <i className="fa fa-solid fa-user-plus"></i>
                                 </Link>
                             </h3>
 
@@ -104,34 +104,29 @@ const MostrarClientes = () => {
                             <table className="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "15%" }}>Nombres</th>
-                                        <th style={{ width: "15%" }}>Apellidos</th>
-                                        <th style={{ width: "10%" }}>Documento</th>
-                                        <th style={{ width: "20%" }}>Correo</th>
-                                        <th style={{ width: "10%" }}>Teléfono</th>
-                                        <th style={{ width: "20%" }}>Dirección</th>
+                                        <th style={{ width: "25%" }}>Nombre</th>
+                                        <th style={{ width: "15%" }}>Unidades</th>
+                                        <th style={{ width: "15%" }}>Precio unitario</th>
+                                        <th style={{ width: "15%" }}>Precio total</th>
                                         <th style={{ width: "15%" }}>Acciones</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {clientes && clientes.map((Cliente, index) => (
+                                    {productos && productos.map((Producto, index) => (
                                         <tr key={index}>
-                                            <td>{Cliente.nombre}</td>
-                                            <td>{Cliente.apellido}</td>
-                                            <td>{Cliente.documento}</td>
-                                            <td>{Cliente.email}</td>
-                                            <td>{Cliente.telefono}</td>
-                                            <td>{Cliente.direccion}</td>
-
+                                            <td>{Producto.nombre_producto}</td>
+                                            <td>{Producto.unidades}</td>
+                                            <td>{Producto.precio_unitario}</td>
+                                            <td>{Producto.precio_total}</td>
                                             <td>
 
-                                                <Link to={`/clientes/editar/${Cliente._id}`}
+                                                <Link to={`/clientes/editar/${Producto._id}`}
                                                     className="btn btn-sm btn-primary">
                                                     <i className="fa-solid fa-user-pen"></i>
                                                 </Link>
 
-                                                <button onClick={(e) => eliminarCliente(e, Cliente._id)}
+                                                <button onClick={(e) => eliminarProducto(e, Producto._id)}
                                                     className="btn btn-danger">
                                                     <i className="fa-solid fa-trash-can"></i>
                                                 </button>
@@ -150,4 +145,4 @@ const MostrarClientes = () => {
   )
 }
 
-export default MostrarClientes
+export default MostrarProductos
