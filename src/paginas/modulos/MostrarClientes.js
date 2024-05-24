@@ -130,8 +130,9 @@ export const MostrarClientes = () => {
                                             <td>{cliente.telefono}</td>
                                             <td>{cliente.direccion}</td>
                                             <td>
-                                                <Link to={`/clientes/editar/${cliente.id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
-                                                <button onClick={(e) => eliminarClientes(e, cliente._id)} className='btn btn-sm btn btn-danger'>Eliminar</button>
+                                                <Link to={`/clientes/editar/${cliente._id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <p></p>
+                                                <button onClick={(e) => eliminarClientes(e, cliente._id)} className='btn btn-sm btn btn-danger'> Eliminar </button>
                                             </td>
                                         </tr>
                                     ))}
