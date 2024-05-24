@@ -123,7 +123,7 @@ const EditarProductos = () => {
                                     <div className="form-group">
                                         <label htmlFor="precio_unitario">Precio unitario</label>
                                         <input
-                                            type="email"
+                                            type="text"
                                             className="form-control"
                                             id="precio_unitario"
                                             name="precio_unitario"
