@@ -126,8 +126,9 @@ export const MostrarProductos = () => {
                                             <td>{producto.precio_unitario}</td>
                                             <td>{producto.precio_total}</td>
                                             <td>
-                                                <Link to={`/productos/editar/${producto.id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
-                                                <button onClick={(e) => eliminarProductos(e, producto._id)} className='btn btn-sm btn btn-danger'>Eliminar</button>
+                                                <Link to={`/productos/editar/${producto._id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <p></p>
+                                                <button onClick={(e) => eliminarProductos(e, producto._id)} className='btn btn-sm btn btn-danger'> Eliminar </button>
                                             </td>
                                         </tr>
                                     ))}
