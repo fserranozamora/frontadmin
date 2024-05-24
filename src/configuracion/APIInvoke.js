@@ -1,18 +1,11 @@
-import config from '../config'
+import config from '../config';
 
 class APIInvoke {
-    async invokeGET(resource, queryParams) {
+    async invokeGET(resource, queryParams = []) {
+        const queryString = queryParams.reduce((last, q, i) => last + `${i === 0 ? '?' : "&"}${q}`, '');
 
-        queryParams = queryParams || []
-        const queryString = queryParams.reduce((last, q, i) => last + `${i === 0 ? '?' : "&"}${q}`, '')
-
-        const token = localStorage.getItem("token");
-        let bearer;
-        if (token === "") {
-            bearer = "";
-        } else {
-            bearer = `${token}`;
-        }
+        const token = localStorage.getItem("token") || "";
+        const bearer = token ? `${token}` : "";
 
         const data = {
             method: 'GET',
@@ -20,21 +13,25 @@ class APIInvoke {
                 'Content-Type': 'application/json',
                 'x-auth-token': bearer
             }
+        };
+
+        const url = `${config.api.baseURL}${resource}${queryString}`;
+
+        try {
+            const response = await fetch(url, data);
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error in invokeGET:", error);
+            return null; // or handle the error as appropriate
         }
-        const url = `${config.api.baseURL}${resource}${queryString}`
-        let response = (await (await fetch(url, data)).json())
-        return response
     }
 
     async invokePUT(resource, body) {
-
-        const token = localStorage.getItem("token");
-        let bearer;
-        if (token === "") {
-            bearer = "";
-        } else {
-            bearer = `${token}`;
-        }
+        const token = localStorage.getItem("token") || "";
+        const bearer = token ? `${token}` : "";
 
         const data = {
             method: 'PUT',
@@ -43,21 +40,25 @@ class APIInvoke {
                 'Content-Type': 'application/json',
                 'x-auth-token': bearer
             }
+        };
+
+        const url = `${config.api.baseURL}${resource}`;
+
+        try {
+            const response = await fetch(url, data);
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error in invokePUT:", error);
+            return null;
         }
-        const url = `${config.api.baseURL}${resource}`
-        let response = (await (await fetch(url, data)).json())
-        return response
     }
 
     async invokePOST(resource, body) {
-
-        const token = localStorage.getItem("token");
-        let bearer;
-        if (token === "") {
-            bearer = "";
-        } else {
-            bearer = `${token}`;
-        }
+        const token = localStorage.getItem("token") || "";
+        const bearer = token ? `${token}` : "";
 
         const data = {
             method: 'POST',
@@ -66,21 +67,25 @@ class APIInvoke {
                 'Content-Type': 'application/json',
                 'x-auth-token': bearer
             }
+        };
+
+        const url = `${config.api.baseURL}${resource}`;
+
+        try {
+            const response = await fetch(url, data);
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error in invokePOST:", error);
+            return null;
         }
-        const url = `${config.api.baseURL}${resource}`
-        let response = (await (await fetch(url, data)).json())
-        return response
     }
 
     async invokeDELETE(resource) {
-
-        const token = localStorage.getItem("token");
-        let bearer;
-        if (token === "") {
-            bearer = "";
-        } else {
-            bearer = `${token}`;
-        }
+        const token = localStorage.getItem("token") || "";
+        const bearer = token ? `${token}` : "";
 
         const data = {
             method: 'DELETE',
@@ -88,12 +93,22 @@ class APIInvoke {
                 'Content-Type': 'application/json',
                 'x-auth-token': bearer
             }
+        };
+
+        const url = `${config.api.baseURL}${resource}`;
+
+        try {
+            const response = await fetch(url, data);
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error in invokeDELETE:", error);
+            return null;
         }
-        const url = `${config.api.baseURL}${resource}`
-        let response = (await (await fetch(url, data)).json())
-        console.log("Respuesta de la API GET - 26:", response, url);
-        return response
     }
 }
+
 // eslint-disable-next-line
-export default new APIInvoke()
+export default new APIInvoke();

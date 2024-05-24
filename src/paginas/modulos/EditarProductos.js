@@ -6,42 +6,36 @@ import Navbar from "../../componentes/Navbar";
 import SidebarContainer from "../../componentes/SidebarContainer";
 import APIInvoke from "../../configuracion/APIInvoke";
 
-const EditarClientes = () => {
-    const [nombres, setNombres] = useState("");
-    const [apellidos, setApellidos] = useState("");
-    const [cedula, setCedula] = useState("");
-    const [correo, setCorreo] = useState("");
-    const [telefono, setTelefono] = useState("");
-    const [direccion, setDireccion] = useState("");
+const EditarProductos = () => {
+    const [nombre_producto, setNombProd] = useState("");
+    const [unidades, setUnidades] = useState("");
+    const [precio_unitario, setPrecioUni] = useState("");
+    const [precio_total, setPrecioTotal] = useState("");
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const actualizarClientes = async (e) => {
+    const actualizarProdcutos = async (e) => {
         e.preventDefault();
-        await APIInvoke.invokePUT(`/api/clientes/${id}`, {
-            nombres: nombres,
-            apellidos: apellidos, // corregido de apellido a apellidos
-            cedula: cedula,
-            correo: correo,
-            telefono: telefono,
-            direccion: direccion,
+        await APIInvoke.invokePUT(`/api/productos/${id}`, {
+            nombre_producto: nombre_producto,
+            unidades: unidades,
+            precio_unitario: precio_unitario,
+            precio_total: precio_total,
         });
-        navigate("/clientes");
+        navigate("/productos");
     };
 
     useEffect(() => {
-        getClientesID();
+        getProdcutosID();
         // eslint-disable-next-line
     }, []);
 
-    const getClientesID = async () => {
-        const resultado = await APIInvoke.invokeGET(`/api/clientes/${id}`); // Cambiado a invokeGET
-        setNombres(resultado.nombres);
-        setApellidos(resultado.apellidos); // corregido de apellido a apellidos
-        setCedula(resultado.cedula);
-        setCorreo(resultado.correo);
-        setTelefono(resultado.telefono);
-        setDireccion(resultado.direccion);
+    const getProdcutosID = async () => {
+        const resultado = await APIInvoke.invokeGET(`/api/productos/${id}`);
+        setNombProd(resultado.nombre_producto);
+        setUnidades(resultado.unidades);
+        setPrecioUni(resultado.precio_unitario);
+        setPrecioTotal(resultado.precio_total);
     };
 
     return (
@@ -50,10 +44,10 @@ const EditarClientes = () => {
             <SidebarContainer></SidebarContainer>
             <div className="content-wrapper pb-2">
                 <ContentHeader
-                    titulo={"Editar clientes"}
-                    breadCrumb1={"Listado de clientes"}
+                    titulo={"Editar productos"}
+                    breadCrumb1={"Listado de productos"}
                     breadCrumb2={"Editar"}
-                    ruta1={"/clientes/editar"}
+                    ruta1={"/productos/editar"}
                 />
                 <section className="container">
                     <div className="card">
@@ -79,118 +73,83 @@ const EditarClientes = () => {
                         </div>
 
                         <div className="card-body">
-                            <form onSubmit={actualizarClientes}>
+                            <form onSubmit={actualizarProdcutos}>
                             <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fa fa-user"/>
+                                        <i className="fa fa-gift"/>
                                     </div>
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="nombres">Nombres Cliente</label>
+                                        <label htmlFor="nombre_producto">Nombre Producto</label>
                                         <input
                                             type="text"
                                             className="form-control"
-                                            id="nombres"
-                                            name="nombres"
+                                            id="nombre_producto"
+                                            name="nombre_producto"
                                             placeholder="Ingrese los nombres del cliente"
-                                            value={nombres}
-                                            onChange={(e) => setNombres(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="form-group">
-                                        <label htmlFor="apellidos">Apellidos</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="apellidos"
-                                            name="apellidos"
-                                            placeholder="Ingrese los apellidos del cliente"
-                                            value={apellidos}
-                                            onChange={(e) => setApellidos(e.target.value)}
+                                            value={nombre_producto}
+                                            onChange={(e) => setNombProd(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fa fa-address-card"/>
+                                        <span className="fa fa-check"/>
                                     </div>
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="cedula">Cédula de ciudadanía</label>
+                                        <label htmlFor="unidades">Unidades</label>
                                         <input
                                             type="number"
                                             className="form-control"
-                                            id="cedula"
-                                            name="cedula"
-                                            placeholder="Ingrese la cédula de ciudadanía"
-                                            value={cedula}
-                                            onChange={(e) => setCedula(e.target.value)}
+                                            id="unidades"
+                                            name="unidades"
+                                            placeholder="Ingrese las unidades del producto"
+                                            value={unidades}
+                                            onChange={(e) => setUnidades(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fa fa-envelope"/>
+                                        <span className="fa fa-money-bill"/>
                                     </div>
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="correo">Correo</label>
+                                        <label htmlFor="precio_unitario">Precio unitario</label>
                                         <input
                                             type="email"
                                             className="form-control"
-                                            id="correo"
-                                            name="correo"
-                                            placeholder="Ingrese el correo del cliente"
-                                            value={correo}
-                                            onChange={(e) => setCorreo(e.target.value)}
+                                            id="precio_unitario"
+                                            name="precio_unitario"
+                                            placeholder="Ingrese su precio unitario"
+                                            value={precio_unitario}
+                                            onChange={(e) => setPrecioUni(e.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fa fa-phone"/>
+                                        <span className="fa fa-money-bill"/>
                                     </div>
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="telefono">Teléfono</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="telefono"
-                                            name="telefono"
-                                            placeholder="Ingrese el teléfono del cliente"
-                                            value={telefono}
-                                            onChange={(e) => setTelefono(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className="input-group-append">
-                                    <div className="input-group-text">
-                                        <span className="fa fa-home"/>
-                                    </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="form-group">
-                                        <label htmlFor="direccion">Dirección</label>
+                                        <label htmlFor="precio_total">Precio total</label>
                                         <input
                                             type="text"
                                             className="form-control"
-                                            id="direccion"
-                                            name="direccion"
+                                            id="precio_total"
+                                            name="precio_total"
                                             placeholder="Ingrese la dirección del cliente"
-                                            value={direccion}
-                                            onChange={(e) => setDireccion(e.target.value)}
+                                            value={precio_total}
+                                            onChange={(e) => setPrecioTotal(e.target.value)}
                                             required
                                         />
                                     </div>
@@ -200,7 +159,7 @@ const EditarClientes = () => {
                                         Editar
                                     </button>
                                     <b>&nbsp;</b>&nbsp;
-                                    <a href="/clientes">
+                                    <a href="/productos">
                                         <button type="button" className="btn btn-danger">
                                             Cancelar
                                         </button>
@@ -216,4 +175,4 @@ const EditarClientes = () => {
     );
 };
 
-export default EditarClientes;
+export default EditarProductos;

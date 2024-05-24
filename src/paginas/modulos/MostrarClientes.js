@@ -7,27 +7,31 @@ import SidebarContainer from "../../componentes/SidebarContainer";
 import APIInvoke from "../../configuracion/APIInvoke";
 import swal from "sweetalert";
 
-const MostrarClientes = () => {
 
-    const [clientes, setClientes] = useState([]);
+export const MostrarClientes = () => {
+
+    const [clientes, setClientes] = useState([])
 
     const getClientes = async () => {
-        const response = await APIInvoke.invokeGET('/api/clientes/');
+
+        const response = await APIInvoke.invokeGET('/api/clientes');
         setClientes(response.clientes);
+
     }
 
     useEffect(() => {
         getClientes();
+
     }, [])
 
-    const eliminarCliente = async (e, idCliente) => {
+    const eliminarClientes = async (e, idCliente) => {
         e.preventDefault();
         const response = await APIInvoke.invokeDELETE(`/api/clientes/${idCliente}`);
 
-        if (response.msg === "El cliente fue eliminado con éxito") {
+        if (response.msg === 'El cliente fue eliminado') {
             const msg = "El cliente fue eliminado correctamente";
             swal({
-                title: 'Information',
+                title: 'Informacion',
                 text: msg,
                 icon: 'success',
                 buttons: {
@@ -35,68 +39,70 @@ const MostrarClientes = () => {
                         text: 'OK',
                         value: true,
                         visible: true,
-                        className: "btn btn-primary",
+                        className: 'btn btn-primary',
                         closeModal: true
                     }
                 }
+
             });
+
             getClientes();
 
+
         } else {
+
             const msg = "El cliente no fue eliminado correctamente";
             swal({
-                title: "Error",
+                title: 'Error',
                 text: msg,
-                icon: "error",
+                icon: 'error',
                 buttons: {
                     confirm: {
-                        text: "OK",
+                        text: 'OK',
                         value: true,
                         visible: true,
-                        className: "btn btn-danger",
+                        className: 'btn btn-danger',
                         closeModal: true
                     }
                 }
 
-            })
+            });
 
         }
     }
 
-  return (
-    <div className="wrapper">
+
+    return (
+        <div className="wrapper">
             <Navbar></Navbar>
             <SidebarContainer></SidebarContainer>
+
             <div className="content-wrapper">
 
                 <ContentHeader
-                    title={"Listado de clientes"}
+                    titulo={"Listado de Clientes"}
                     breadCrumb1={"Inicio"}
                     breadCrumb2={"Clientes"}
-                    route1={"/home"}>
-                </ContentHeader>
+                    ruta1={"/home"}
+                />
 
-                <section className="content">
+                <seccion className="content">
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">
-                                <Link to={"/clientes/agregar"}
-                                    className="btn btn-block btn-primary btn-sm"> Agregar clientes  <i className="fa fa-solid fa-user-plus"></i>
-                                </Link>
-                            </h3>
-
+                            <h3 className="card-title"><Link to={"/clientes/agregar"}
+                                className="btn btn-block btn-primary btn-sm"> Agregar Clientes <i className="fa fa-user-plus"> </i></Link></h3>
                             <div className="card-tools">
 
-                                <button type="button" className="btn btn-tool"
-                                    data-card-widget="remove" title="Remove">
-                                    <i className="fas fa-solid fa-plus" />
+                                <button type="button" className="btn btn-tool" data-card-widget="collapse"
+                                    title="collapse">
+                                    <i className="fas fa-item" />
                                 </button>
 
-                                <button type="button" className="btn btn-tool"
-                                    data-card-widget="collapse" title="Collapse">
-                                    <i className="fas fa-solid fa-minus" />
-                                </button>
 
+                                <button type="button" className="btn btn-tool" data-card-widget="remove"
+                                    title="Remove">
+                                    <i className="fas fa-item" />
+                                </button>
                             </div>
                         </div>
 
@@ -104,50 +110,43 @@ const MostrarClientes = () => {
                             <table className="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "15%" }}>Nombres</th>
-                                        <th style={{ width: "15%" }}>Apellidos</th>
-                                        <th style={{ width: "10%" }}>Documento</th>
-                                        <th style={{ width: "20%" }}>Correo</th>
-                                        <th style={{ width: "10%" }}>Teléfono</th>
-                                        <th style={{ width: "20%" }}>Dirección</th>
-                                        <th style={{ width: "15%" }}>Acciones</th>
+                                        <th style={{ width: '15%' }}>Nombre Clientes</th>
+                                        <th style={{ width: '15%' }}>Apellidos</th>
+                                        <th style={{ width: '15%' }}>Cedula</th>
+                                        <th style={{ width: '20%' }}>Correo</th>
+                                        <th style={{ width: '10%' }}>Telefono</th>
+                                        <th style={{ width: '15%' }}>Direccion</th>
+                                        <th style={{ width: '10%' }}>Acciones</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {clientes && clientes.map((Cliente, index) => (
+                                    {clientes.map((cliente, index) => (
                                         <tr key={index}>
-                                            <td>{Cliente.nombre}</td>
-                                            <td>{Cliente.apellido}</td>
-                                            <td>{Cliente.documento}</td>
-                                            <td>{Cliente.email}</td>
-                                            <td>{Cliente.telefono}</td>
-                                            <td>{Cliente.direccion}</td>
-
+                                            <td>{cliente.nombres}</td>
+                                            <td>{cliente.apellidos}</td>
+                                            <td>{cliente.cedula}</td>
+                                            <td>{cliente.correo}</td>
+                                            <td>{cliente.telefono}</td>
+                                            <td>{cliente.direccion}</td>
                                             <td>
-
-                                                <Link to={`/clientes/editar/${Cliente._id}`}
-                                                    className="btn btn-sm btn-primary">
-                                                    <i className="fa-solid fa-user-pen"></i>
-                                                </Link>
-
-                                                <button onClick={(e) => eliminarCliente(e, Cliente._id)}
-                                                    className="btn btn-danger">
-                                                    <i className="fa-solid fa-trash-can"></i>
-                                                </button>
+                                                <Link to={`/clientes/editar/${cliente.id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <button onClick={(e) => eliminarClientes(e, cliente._id)} className='btn btn-sm btn btn-danger'>Eliminar</button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-                </section>
-                <Footer></Footer>
+                </seccion>
             </div>
+            <Footer></Footer>
         </div>
-  )
+    )
 }
+
+
+
 
 export default MostrarClientes

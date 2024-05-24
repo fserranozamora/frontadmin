@@ -7,27 +7,31 @@ import SidebarContainer from "../../componentes/SidebarContainer";
 import APIInvoke from "../../configuracion/APIInvoke";
 import swal from "sweetalert";
 
-const MostrarProductos = () => {
 
-    const [productos, setProductos] = useState([]);
+export const MostrarProductos = () => {
+
+    const [productos, setProductos] = useState([])
 
     const getProductos = async () => {
-        const response = await APIInvoke.invokeGET('/api/productos/');
+
+        const response = await APIInvoke.invokeGET('/api/productos');
         setProductos(response.productos);
+
     }
 
     useEffect(() => {
         getProductos();
+
     }, [])
 
-    const eliminarProducto = async (e, idProducto) => {
+    const eliminarProductos = async (e, idProducto) => {
         e.preventDefault();
-        const response = await APIInvoke.invokeDELETE(`/api/productos/${idProducto}`);
+        const response = await APIInvoke.invokeDELETE(`/api/producto/${idProducto}`);
 
-        if (response.msg === "El producto fue eliminado con éxito") {
+        if (response.msg === 'El producto fue eliminado') {
             const msg = "El producto fue eliminado correctamente";
             swal({
-                title: 'Information',
+                title: 'Informacion',
                 text: msg,
                 icon: 'success',
                 buttons: {
@@ -35,68 +39,70 @@ const MostrarProductos = () => {
                         text: 'OK',
                         value: true,
                         visible: true,
-                        className: "btn btn-primary",
+                        className: 'btn btn-primary',
                         closeModal: true
                     }
                 }
+
             });
+
             getProductos();
 
+
         } else {
-            const msg = "El cliente no fue eliminado correctamente";
+
+            const msg = "El producto no fue eliminado correctamente";
             swal({
-                title: "Error",
+                title: 'Error',
                 text: msg,
-                icon: "error",
+                icon: 'error',
                 buttons: {
                     confirm: {
-                        text: "OK",
+                        text: 'OK',
                         value: true,
                         visible: true,
-                        className: "btn btn-danger",
+                        className: 'btn btn-danger',
                         closeModal: true
                     }
                 }
 
-            })
+            });
 
         }
     }
 
-  return (
-    <div className="wrapper">
+
+    return (
+        <div className="wrapper">
             <Navbar></Navbar>
             <SidebarContainer></SidebarContainer>
+
             <div className="content-wrapper">
 
                 <ContentHeader
-                    title={"Listado de productos"}
+                    titulo={"Listado de Productos"}
                     breadCrumb1={"Inicio"}
                     breadCrumb2={"Productos"}
-                    route1={"/home"}>
-                </ContentHeader>
+                    ruta1={"/home"}
+                />
 
-                <section className="content">
+                <seccion className="content">
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">
-                                <Link to={"/productos/agregar"}
-                                    className="btn btn-block btn-primary btn-sm"> Agregar productos  <i className="fa fa-solid fa-user-plus"></i>
-                                </Link>
-                            </h3>
-
+                            <h3 className="card-title"><Link to={"/productos/agregar"}
+                                className="btn btn-block btn-primary btn-sm"> Agregar Productos <i className="fa fa-user-plus"> </i></Link></h3>
                             <div className="card-tools">
 
-                                <button type="button" className="btn btn-tool"
-                                    data-card-widget="remove" title="Remove">
-                                    <i className="fas fa-solid fa-plus" />
+                                <button type="button" className="btn btn-tool" data-card-widget="collapse"
+                                    title="collapse">
+                                    <i className="fas fa-item" />
                                 </button>
 
-                                <button type="button" className="btn btn-tool"
-                                    data-card-widget="collapse" title="Collapse">
-                                    <i className="fas fa-solid fa-minus" />
-                                </button>
 
+                                <button type="button" className="btn btn-tool" data-card-widget="remove"
+                                    title="Remove">
+                                    <i className="fas fa-item" />
+                                </button>
                             </div>
                         </div>
 
@@ -104,45 +110,39 @@ const MostrarProductos = () => {
                             <table className="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "25%" }}>Nombre</th>
-                                        <th style={{ width: "15%" }}>Unidades</th>
-                                        <th style={{ width: "15%" }}>Precio unitario</th>
-                                        <th style={{ width: "15%" }}>Precio total</th>
-                                        <th style={{ width: "15%" }}>Acciones</th>
+                                        <th style={{ width: '50%' }}>Nombre Producto</th>
+                                        <th style={{ width: '10%' }}>Unidades</th>
+                                        <th style={{ width: '15%' }}>Precio unitario</th>
+                                        <th style={{ width: '15%' }}>Precio total</th>
+                                        <th style={{ width: '10%' }}>Acciones</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {productos && productos.map((Producto, index) => (
+                                    {productos.map((producto, index) => (
                                         <tr key={index}>
-                                            <td>{Producto.nombre_producto}</td>
-                                            <td>{Producto.unidades}</td>
-                                            <td>{Producto.precio_unitario}</td>
-                                            <td>{Producto.precio_total}</td>
+                                            <td>{producto.nombre_producto}</td>
+                                            <td>{producto.unidades}</td>
+                                            <td>{producto.precio_unitario}</td>
+                                            <td>{producto.precio_total}</td>
                                             <td>
-
-                                                <Link to={`/clientes/editar/${Producto._id}`}
-                                                    className="btn btn-sm btn-primary">
-                                                    <i className="fa-solid fa-user-pen"></i>
-                                                </Link>
-
-                                                <button onClick={(e) => eliminarProducto(e, Producto._id)}
-                                                    className="btn btn-danger">
-                                                    <i className="fa-solid fa-trash-can"></i>
-                                                </button>
+                                                <Link to={`/productos/editar/${producto.id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <button onClick={(e) => eliminarProductos(e, producto._id)} className='btn btn-sm btn btn-danger'>Eliminar</button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-                </section>
-                <Footer></Footer>
+                </seccion>
             </div>
+            <Footer></Footer>
         </div>
-  )
+    )
 }
+
+
+
 
 export default MostrarProductos

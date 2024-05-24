@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 
 const Registro = () => {
 
+    // definimos el estado inicial de un componente
     const [usuario, setUsuario] = useState({
         nombre:'',
         email: '',
@@ -216,7 +217,7 @@ const Registro = () => {
 
 
                             <div className='social-auth-links text-center mb-3'>
-                                <button type='submit' className='btn btn-block btn-primary'> Crear Cuenta</button>
+                                <button type='submit' className='btn btn-block btn-primary'> Crear Cuenta </button>
                                 <Link to={"/"} className='btn btn-block btn-danger' > Regresar al login </Link>
                             </div>
                         </form>

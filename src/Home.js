@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ContentHeader from './componentes/ContentHeader.js';
-import Footer from './componentes/Footer.js';
-import Navbar from './componentes/Navbar.js';
-import SidebarContainer from './componentes/SidebarContainer.js';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import ContentHeader from './componentes/ContentHeader'
+import Footer from './componentes/Footer';
+import Navbar from './componentes/Navbar';
+import SidebarContainer from './componentes/SidebarContainer';
 
 const Home = () => {
     return (
@@ -19,12 +19,12 @@ const Home = () => {
                     ruta1={"/home"}
                 />
 
-                <section className="content">
+<section className="content">
                     <div className="container-fluid">
                         <div className="row">
 
                             <div className="col-lg-3 col-6">
-                                <div className="small-box bg-info">
+                                <div className="small-box bg-primary">
                                     <div className="inner">
                                         <h3>Clientes</h3>
                                         <p>&nbsp;</p>
@@ -32,7 +32,7 @@ const Home = () => {
                                     <div className="icon">
                                         <i className="fa fa-edit" />
                                     </div>
-                                    <Link to={"/clientes"} className="small-box-footer">Ver Clientes <i className="fas fa-arrow-circle-right" /></Link>
+                                    <Link to={"/clientes"} className="small-box-footer"> Clientes <i className="fas fa-arrow-circle-right" /></Link>
                                 </div>
                             </div>
                         </div>
@@ -40,25 +40,29 @@ const Home = () => {
                         <div className="row">
 
                             <div className="col-lg-3 col-6">
-                                <div className="small-box bg-info">
+                                <div className="small-box bg-secondary">
                                     <div className="inner">
-                                        <h3>Productos</h3>
+                                        <h3> Productos </h3>
                                         <p>&nbsp;</p>
                                     </div>
                                     <div className="icon">
                                         <i className="fa fa-edit" />
                                     </div>
-                                    <Link to={"/Productos"} className="small-box-footer">Ver Productos <i className="fas fa-arrow-circle-right" /></Link>
+                                    <Link to={"/productos"} className="small-box-footer"> Productos <i className="fas fa-arrow-circle-right" /></Link>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </section>
 
+
             </div>
             <Footer></Footer>
-        </div>
-    );
+
+        
+    </div>
+  );
 }
 
 export default Home;
