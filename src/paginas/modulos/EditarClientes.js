@@ -197,7 +197,7 @@ const EditarClientes = () => {
                                 </div>
                                 <div className="card-footer bg-white ">
                                     <button type="submit" className="btn btn-info">
-                                        Editar
+                                        Guardar
                                     </button>
                                     <b>&nbsp;</b>&nbsp;
                                     <a href="/clientes">
