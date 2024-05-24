@@ -90,7 +90,7 @@ export const MostrarProductos = () => {
                     <div className="card">
                         <div className="card-header">
                             <h3 className="card-title"><Link to={"/productos/agregar"}
-                                className="btn btn-block btn-primary btn-sm"> Agregar Productos <i className="fa fa-user-plus"> </i></Link></h3>
+                                className="btn btn-block btn-primary btn-sm"> Agregar Productos <i className="fa fa-plus"> </i></Link></h3>
                             <div className="card-tools">
 
                                 <button type="button" className="btn btn-tool" data-card-widget="collapse"
