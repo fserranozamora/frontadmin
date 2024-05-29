@@ -90,7 +90,7 @@ export const MostrarProductos = () => {
                     <div className="card">
                         <div className="card-header">
                             <h3 className="card-title"><Link to={"/productos/agregar"}
-                                className="btn btn-block btn-primary btn-sm"> Agregar Productos <i className="fa fa-plus"> </i></Link></h3>
+                                className="btn btn-block btn-success btn-sm"> Agregar Productos <i className="fa fa-plus"> </i></Link></h3>
                             <div className="card-tools">
 
                                 <button type="button" className="btn btn-tool" data-card-widget="collapse"
@@ -108,17 +108,17 @@ export const MostrarProductos = () => {
 
                         <div className="card-body">
                             <table className="table table-bordered">
-                                <thead>
+                                <thead className="table-success">
                                     <tr>
                                         <th style={{ width: '50%' }}>Nombre Producto</th>
                                         <th style={{ width: '10%' }}>Unidades</th>
                                         <th style={{ width: '15%' }}>Precio unitario</th>
                                         <th style={{ width: '15%' }}>Precio total</th>
-                                        <th style={{ width: '10%' }}>Acciones</th>
+                                        <th style={{ width: '5%' }}>Acciones</th>
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody className="table-info">
                                     {productos.map((producto, index) => (
                                         <tr key={index}>
                                             <td>{producto.nombre_producto}</td>
@@ -126,9 +126,9 @@ export const MostrarProductos = () => {
                                             <td>{producto.precio_unitario}</td>
                                             <td>{producto.precio_total}</td>
                                             <td>
-                                                <Link to={`/productos/editar/${producto._id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <Link to={`/productos/editar/${producto._id}`} className='btn btn-sm btn btn-primary'> Editar <i className="fa fa-pen"> </i></Link>
                                                 <p></p>
-                                                <button onClick={(e) => eliminarProductos(e, producto._id)} className='btn btn-sm btn btn-danger'> Eliminar </button>
+                                                <button onClick={(e) => eliminarProductos(e, producto._id)} className='btn btn-sm btn btn-danger'> Eliminar <i className="fa fa-trash"> </i></button>
                                             </td>
                                         </tr>
                                     ))}
