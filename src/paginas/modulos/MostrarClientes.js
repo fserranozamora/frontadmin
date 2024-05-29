@@ -90,7 +90,7 @@ export const MostrarClientes = () => {
                     <div className="card">
                         <div className="card-header">
                             <h3 className="card-title"><Link to={"/clientes/agregar"}
-                                className="btn btn-block btn-primary btn-sm"> Agregar Clientes <i className="fa fa-user-plus"> </i></Link></h3>
+                                className="btn btn-block btn-success btn-sm"> Agregar Clientes <i className="fa fa-user-plus"> </i></Link></h3>
                             <div className="card-tools">
 
                                 <button type="button" className="btn btn-tool" data-card-widget="collapse"
@@ -116,11 +116,11 @@ export const MostrarClientes = () => {
                                         <th style={{ width: '20%' }}>Correo</th>
                                         <th style={{ width: '10%' }}>Telefono</th>
                                         <th style={{ width: '15%' }}>Direccion</th>
-                                        <th style={{ width: '10%' }}>Acciones</th>
+                                        <th style={{ width: '5%' }}>Acciones</th>
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody className="table-info">
                                     {clientes.map((cliente, index) => (
                                         <tr key={index}>
                                             <td>{cliente.nombres}</td>
@@ -130,9 +130,9 @@ export const MostrarClientes = () => {
                                             <td>{cliente.telefono}</td>
                                             <td>{cliente.direccion}</td>
                                             <td>
-                                                <Link to={`/clientes/editar/${cliente._id}`} className='btn btn-sm btn btn-primary'> Editar </Link>
+                                                <Link to={`/clientes/editar/${cliente._id}`} className='btn btn-sm btn btn-primary'> Editar <i className="fa fa-pen"> </i></Link>
                                                 <p></p>
-                                                <button onClick={(e) => eliminarClientes(e, cliente._id)} className='btn btn-sm btn btn-danger'> Eliminar </button>
+                                                <button onClick={(e) => eliminarClientes(e, cliente._id)} className='btn btn-sm btn btn-danger'> Eliminar <i className="fa fa-trash"> </i></button>
                                             </td>
                                         </tr>
                                     ))}
