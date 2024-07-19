@@ -29,7 +29,6 @@ function App() {
             <Route path="/productos" exact element ={<RutasProtegidas element={<MostrarProductos/>}/>}></Route>
             <Route path="/clientes/agregar" exact element ={<RutasProtegidas element={<AgregarProductos/>}/>}></Route>
             <Route path="/clientes/editar/:id" exact element ={<RutasProtegidas element={<EditarProductos/>}/>}></Route>
-
           </Routes>
         </Router>
       </Fragment>
