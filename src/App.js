@@ -9,6 +9,7 @@ import EditarClientes from "./paginas/modulos/EditarClientes";
 import MostrarProductos from "./paginas/modulos/MostrarProductos";
 import AgregarProductos from "./paginas/modulos/AgregarProductos";
 import EditarProductos from "./paginas/modulos/EditarProductos";
+import RutasProtegidas from "./paginas/auth/RutasProtegidas";
 
 
 
@@ -18,15 +19,16 @@ function App() {
       <Fragment>
         <Router>
           <Routes>
-            <Route path="/" exact element ={<Login/>}></Route>
+            <Route path="/" element ={<Navigate to = "/login"/>}></Route>
+            <Route path="/login" exact element ={<Login/>}></Route>
             <Route path="/Registro" exact element ={<Registro/>}></Route>
-            <Route path="/home" exact element ={<Home/>}></Route>
-            <Route path="/clientes" exact element ={<MostrarClientes/>}></Route>
-            <Route path="/clientes/agregar" exact element ={<AgregarClientes/>}></Route>
-            <Route path="/clientes/editar/:id" exact element ={<EditarClientes/>}></Route>
-            <Route path="/productos" exact element ={<MostrarProductos/>}></Route>
-            <Route path="/productos/agregar" exact element ={<AgregarProductos/>}></Route>
-            <Route path="/productos/editar/:id" exact element ={<EditarProductos/>}></Route>
+            <Route path="/home" exact element ={<RutasProtegidas element={<Home/>}/>}></Route>
+            <Route path="/clientes" exact element ={<RutasProtegidas element={<MostrarClientes/>}/>}></Route>
+            <Route path="/clientes/agregar" exact element ={<RutasProtegidas element={<AgregarClientes/>}/>}></Route>
+            <Route path="/clientes/editar/:id" exact element ={<RutasProtegidas element={<EditarClientes/>}/>}></Route>
+            <Route path="/productos" exact element ={<RutasProtegidas element={<MostrarProductos/>}/>}></Route>
+            <Route path="/clientes/agregar" exact element ={<RutasProtegidas element={<AgregarProductos/>}/>}></Route>
+            <Route path="/clientes/editar/:id" exact element ={<RutasProtegidas element={<EditarProductos/>}/>}></Route>
 
           </Routes>
         </Router>
