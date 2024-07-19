@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { BrowserRouter as Router,Route,Routes } from "react-router-dom";
+import { BrowserRouter as Router,Route,Routes, Navigate } from "react-router-dom";
 import Login from "./paginas/auth/Login";
 import Registro from "./paginas/auth/Registro";
 import Home from "./Home";
@@ -29,6 +29,7 @@ function App() {
             <Route path="/productos" exact element ={<RutasProtegidas element={<MostrarProductos/>}/>}></Route>
             <Route path="/clientes/agregar" exact element ={<RutasProtegidas element={<AgregarProductos/>}/>}></Route>
             <Route path="/clientes/editar/:id" exact element ={<RutasProtegidas element={<EditarProductos/>}/>}></Route>
+
           </Routes>
         </Router>
       </Fragment>
