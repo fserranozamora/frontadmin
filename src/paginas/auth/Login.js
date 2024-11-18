@@ -81,7 +81,7 @@ const Login = () => {
             localStorage.setItem( 'token', jwt)
 
             // despues de logueado entramos al home de la pagina
-            navigate("/home");
+            navigate("/Home");
         }
         }
     }
